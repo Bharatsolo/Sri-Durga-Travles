@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us – Sri Durga Travels | Vijayawada Cab Service</title>
+  <meta name="description"
+    content="Learn about Sri Durga Travels – 5+ years of safe, reliable intercity cab service from Vijayawada to Hyderabad, Tirupati & Vizag.">
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label-card {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .story-section {
+      padding: 5rem 5%;
+      background: var(--navy-light);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .story-content h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    .story-content p {
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .values-section {
+      padding: 5rem 5%;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .value-card {
+      padding: 2.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(244, 161, 0, 0.4);
+    }
+
+    .value-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .value-card h3 {
+      margin-bottom: 1rem;
+    }
+
+    .value-card p {
+      font-size: 0.95rem;
+    }
+
+    .founder-section {
+      padding: 5rem 5%;
+      background: var(--navy-light);
+    }
+
+    .founder-card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .founder-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--navy);
+      margin: 0 auto 1.5rem;
+    }
+
+    .founder-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .founder-role {
+      color: var(--gold);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .founder-card>p {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .founder-contact {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .mission-section {
+      padding: 5rem 5%;
+      text-align: center;
+    }
+
+    .mission-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .mission-content h2 {
+      margin-bottom: 2rem;
+    }
+
+    .mission-content p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .fleet-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .fleet-preview-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .fleet-preview-item img {
+      max-width: 100%;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 0.5rem;
+    }
+
+    .fleet-preview-item span {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .stat-card {
+        padding: 1.2rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .story-section {
+        padding: 3.5rem 4%;
+      }
+
+      .story-content p {
+        font-size: 0.92rem;
+      }
+
+      .values-section {
+        padding: 3.5rem 4%;
+      }
+
+      .value-card {
+        padding: 1.5rem;
+      }
+
+      .value-icon {
+        font-size: 2rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .founder-section {
+        padding: 3.5rem 4%;
+      }
+
+      .founder-card {
+        padding: 2rem;
+      }
+
+      .founder-name {
+        font-size: 1.3rem;
+      }
+
+      .founder-contact {
+        gap: 0.6rem;
+      }
+
+      .mission-section {
+        padding: 3.5rem 4%;
+      }
+
+      .mission-content p {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+      }
+
+      .stat-card {
+        padding: 1rem;
+      }
+
+      .stat-number {
+        font-size: 1.6rem;
+      }
+
+      .stat-label-card {
+        font-size: 0.75rem;
+      }
+
+      .value-card {
+        padding: 1.2rem;
+      }
+
+      .value-icon {
+        font-size: 1.8rem;
+      }
+
+      .value-card p {
+        font-size: 0.85rem;
+      }
+
+      .founder-card {
+        padding: 1.5rem;
+      }
+
+      .founder-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+
+      .founder-name {
+        font-size: 1.15rem;
+      }
+
+      .founder-card>p {
+        font-size: 0.88rem;
+      }
+
+      .founder-contact .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .mission-content p {
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><img src="images/logo.png" alt="Logo"></div> Sri Durga <span>Travels</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="fleet.html">Our Fleet</a></li>
+      <li><a href="routes.html">Routes</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://wa.me/919581773271" target="_blank" class="nav-cta">💬 Book on WhatsApp</a></li>
+    </ul>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+  <nav class="mobile-menu">
+    <a href="index.html">Home</a><a href="about.html">About</a>
+    <a href="fleet.html">Our Fleet</a><a href="routes.html">Routes</a>
+    <a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+    <a href="https://wa.me/919581773271" target="_blank">💬 Book on WhatsApp</a>
+  </nav>
+
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> About Us</div>
+    <h1>About <span class="gold-text">Sri Durga Travels</span></h1>
+    <p>Your trusted intercity travel partner since 2019. Connecting Vijayawada with Hyderabad, Tirupati, and Vizag
+      through safe, comfortable, and reliable cab services.</p>
+  </div>
+
+  <!-- STATS -->
+  <section style="padding:0 5% 4rem;">
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <div class="stat-number">5+</div>
+        <div class="stat-label-card">Years Experience</div>
+      </div>
+      <div class="stat-card reveal delay-1">
+        <div class="stat-number">5000+</div>
+        <div class="stat-label-card">Happy Customers</div>
+      </div>
+      <div class="stat-card reveal delay-2">
+        <div class="stat-number">100K+</div>
+        <div class="stat-label-card">Kilometers Driven</div>
+      </div>
+      <div class="stat-card reveal delay-3">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label-card">Customer Support</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR STORY -->
+  <section class="story-section">
+    <div class="story-content" style="max-width: 900px; margin: 0 auto; text-align: center;">
+      <h2>Our <span class="gold-text">Journey</span></h2>
+      <p>Founded in 2019, Sri Durga Travels began with a simple mission: to provide safe, reliable, and comfortable
+        intercity transportation for travelers in Andhra Pradesh. What started as a single vehicle service has grown
+        into a trusted fleet of premium AC cabs serving thousands of customers annually.</p>
+      <p>Our founder, with over a decade of experience in the transportation industry, recognized the need for
+        professional cab services that prioritize passenger safety and comfort. Every vehicle in our fleet is equipped
+        with modern amenities, and our drivers undergo rigorous training to ensure the highest standards of service.
+      </p>
+      <p>Today, we proudly serve passengers traveling between Vijayawada, Hyderabad, Tirupati, and Vizag, making
+        intercity travel in South India safer and more convenient than ever before.</p>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values-section">
+    <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+      <span class="section-tag">Our Values</span>
+      <h2>What <span class="gold-text">Drives Us</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon">🛡️</div>
+        <h3>Safety First</h3>
+        <p>Every journey begins and ends with your safety. Our vehicles undergo regular maintenance, and our drivers are
+          trained in defensive driving techniques.</p>
+      </div>
+      <div class="value-card reveal delay-1">
+        <div class="value-icon">⭐</div>
+        <h3>Quality Service</h3>
+        <p>We maintain the highest standards in everything we do — from vehicle cleanliness to customer service. Your
+          comfort is our priority.</p>
+      </div>
+      <div class="value-card reveal delay-2">
+        <div class="value-icon">🤝</div>
+        <h3>Trust & Reliability</h3>
+        <p>Building lasting relationships with our customers through transparent pricing, on-time service, and honest
+          communication.</p>
+      </div>
+      <div class="value-card reveal delay-3">
+        <div class="value-icon">🌱</div>
+        <h3>Sustainable Travel</h3>
+        <p>Committed to eco-friendly practices with well-maintained vehicles and efficient routing to minimize our
+          environmental impact.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section class="founder-section">
+    <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+      <span class="section-tag">Our Founder</span>
+      <h2>Meet the <span class="gold-text">Person Behind</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="founder-card reveal">
+      <div class="founder-avatar">RK</div>
+      <div class="founder-name">Ranjith Kumar</div>
+      <div class="founder-role">Proprietor & Founder</div>
+      <p>With 15+ years in transportation, Ranjith leads our vision of making intercity travel safe, reliable and
+        customer-friendly. He personally oversees all operations to ensure every customer receives the best service. For
+        bookings and enquiries, reach out directly:</p>
+      <div class="founder-contact">
+        <a href="https://wa.me/919581773271" target="_blank" class="btn btn-whatsapp">💬 WhatsApp</a>
+        <a href="tel:+919581773271" class="btn btn-outline">📞 +91 95817 73271</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission-section">
+    <div class="mission-content">
+      <h2>Our <span class="gold-text">Mission</span></h2>
+      <p>To revolutionize intercity travel in Andhra Pradesh by providing premium, safe, and affordable cab services
+        that connect people and places with reliability and comfort. We strive to be the most trusted transportation
+        partner for travelers across South India.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+        <a href="contact.html" class="btn btn-primary">Get In Touch</a>
+        <a href="routes.html" class="btn btn-outline">View Our Routes</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><img src="images/logo.png" alt="Logo"></div> Sri Durga <span>Travels</span>
+        </a>
+        <p>Your trusted intercity travel partner from Vijayawada. Safe, comfortable and affordable AC cab service across
+          Andhra Pradesh & Telangana.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="fleet.html">Our Fleet</a></li>
+          <li><a href="routes.html">Routes</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Popular Routes</h4>
+        <ul>
+          <li><a href="routes.html">Vijayawada → Hyderabad</a></li>
+          <li><a href="routes.html">Vijayawada → Tirupati</a></li>
+          <li><a href="routes.html">Vijayawada → Vizag</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item"><span>📞</span><a href="tel:+919581773271">+91 95817 73271</a></div>
+        <div class="footer-contact-item"><span>📞</span><a href="tel:+917095258325">+91 70952 58325</a></div>
+        <div class="footer-contact-item"><span>💬</span><a href="https://wa.me/919581773271" target="_blank">WhatsApp
+            Us</a></div>
+        <div class="footer-contact-item"><span>📧</span><a href="mailto:rk244895@gmail.com">rk244895@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Sri Durga Travels. All rights reserved.</p>
+      <p><a href="terms.html" style="color:inherit;">Terms & Conditions</a> · <a href="terms.html"
+          style="color:inherit;">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/919581773271" target="_blank" class="whatsapp-float">💬</a>
+  <a href="tel:+919581773271" class="call-float">📞</a>
+  <button class="back-to-top" aria-label="Back to top">▲</button>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

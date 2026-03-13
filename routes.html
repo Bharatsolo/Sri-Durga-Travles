@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Routes & Pricing – Sri Durga Travels | Vijayawada Cab Service</title>
+  <meta name="description"
+    content="Intercity & local cab routes from Vijayawada to Hyderabad, Tirupati, Vizag, Guntur, Amaravati. One-way and round trip with AC vehicles.">
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ─── Route Tabs ─── */
+    .route-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .route-tab {
+      padding: 0.7rem 1.8rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .route-tab:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .route-tab.active {
+      background: var(--gold);
+      color: var(--navy);
+      border-color: var(--gold);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* ─── Route Table Card ─── */
+    .routes-table-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .routes-table-wrap h3 {
+      padding: 1.5rem 2rem;
+      margin: 0;
+      font-size: 1.15rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .routes-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .routes-table thead th {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .routes-table tbody td {
+      padding: 1rem 1.5rem;
+      font-size: 0.92rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: middle;
+    }
+
+    .routes-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .routes-table tbody tr:hover {
+      background: rgba(244, 161, 0, 0.04);
+    }
+
+    .route-name {
+      font-weight: 700;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .route-name .arrow {
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    .trip-badges {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .trip-badge {
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .trip-badge.oneway {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+    }
+
+    .trip-badge.round {
+      background: rgba(244, 161, 0, 0.15);
+      color: var(--gold);
+    }
+
+    .trip-badge.popular {
+      background: rgba(74, 222, 128, 0.15);
+      color: #4ade80;
+    }
+
+    .trip-badge.pilgrimage {
+      background: rgba(251, 146, 60, 0.15);
+      color: #fb923c;
+    }
+
+    .trip-badge.scenic {
+      background: rgba(168, 85, 247, 0.15);
+      color: #a855f7;
+    }
+
+    .book-link {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .book-link:hover {
+      color: var(--white);
+    }
+
+    /* ─── Featured Route Cards ─── */
+    .featured-routes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .featured-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .featured-card:hover {
+      border-color: rgba(244, 161, 0, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+    }
+
+    .fc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .fc-route {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .fc-route .arrow {
+      color: var(--gold);
+      margin: 0 0.3rem;
+    }
+
+    .fc-badge {
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .fc-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fc-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .fc-detail-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .fc-detail-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .fc-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .fc-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .fc-chip span {
+      color: var(--gold);
+    }
+
+    .fc-actions {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .fc-actions .btn {
+      flex: 1;
+      justify-content: center;
+      font-size: 0.85rem;
+      padding: 0.7rem;
+    }
+
+    /* ─── Local Routes ─── */
+    .local-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .local-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .local-card:hover {
+      border-color: rgba(244, 161, 0, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .local-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .local-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .local-name .emoji {
+      margin-right: 0.4rem;
+    }
+
+    .local-meta {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .local-meta strong {
+      color: var(--off-white);
+    }
+
+    .local-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-wrap {
+      background: var(--navy-light);
+      border-radius: var(--radius);
+      padding: 3rem;
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 1.2rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .faq-q:hover {
+      color: var(--gold);
+    }
+
+    .faq-arrow {
+      color: var(--gold);
+      font-size: 1.1rem;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-a p {
+      padding-bottom: 1.2rem;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 200px;
+    }
+
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* ─── CTA Strip ─── */
+    .cta-strip {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.08), rgba(37, 211, 102, 0.03));
+      border: 1px solid rgba(37, 211, 102, 0.25);
+      border-radius: 16px;
+      padding: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+    }
+
+    .cta-strip-text h3 {
+      margin-bottom: 0.3rem;
+      font-size: 1.2rem;
+    }
+
+    .cta-strip-text p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .cta-strip-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .route-tabs {
+        gap: 0.4rem;
+      }
+
+      .route-tab {
+        padding: 0.55rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      .routes-table thead {
+        display: none;
+      }
+
+      .routes-table tbody td {
+        display: block;
+        padding: 0.4rem 1.2rem;
+        text-align: left;
+      }
+
+      .routes-table tbody td:first-child {
+        padding-top: 1rem;
+      }
+
+      .routes-table tbody td:last-child {
+        padding-bottom: 1rem;
+      }
+
+      .routes-table tbody td::before {
+        content: attr(data-label);
+        font-size: 0.68rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        display: block;
+        margin-bottom: 0.15rem;
+      }
+
+      .featured-routes {
+        grid-template-columns: 1fr;
+      }
+
+      .fc-details {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+      }
+
+      .fc-route {
+        font-size: 1.1rem;
+      }
+
+      .fc-actions {
+        flex-direction: column;
+      }
+
+      .local-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-strip {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1.2rem;
+      }
+
+      .cta-strip-actions {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .cta-strip-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .faq-wrap {
+        padding: 1.5rem;
+      }
+
+      .faq-q {
+        font-size: 0.9rem;
+        padding: 1rem 0;
+        gap: 0.5rem;
+      }
+
+      .faq-a p {
+        font-size: 0.85rem;
+      }
+
+      .routes-table-wrap h3 {
+        padding: 1rem 1.2rem;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .route-tabs {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .route-tab {
+        text-align: center;
+        font-size: 0.82rem;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+      }
+
+      .featured-card {
+        padding: 1.2rem;
+      }
+
+      .fc-route {
+        font-size: 1rem;
+      }
+
+      .fc-badge {
+        font-size: 0.65rem;
+      }
+
+      .fc-detail-label {
+        font-size: 0.65rem;
+      }
+
+      .fc-detail-value {
+        font-size: 0.85rem;
+      }
+
+      .fc-chip {
+        font-size: 0.68rem;
+        padding: 0.2rem 0.5rem;
+      }
+
+      .local-card {
+        padding: 1.2rem;
+      }
+
+      .routes-table tbody td {
+        padding: 0.35rem 1rem;
+        font-size: 0.85rem;
+      }
+
+      .cta-strip {
+        padding: 1.2rem;
+      }
+
+      .cta-strip-text h3 {
+        font-size: 1rem;
+      }
+
+      .cta-strip-text p {
+        font-size: 0.82rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><img src="images/logo.png" alt="Logo"></div> Sri Durga <span>Travels</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="fleet.html">Our Fleet</a></li>
+      <li><a href="routes.html">Routes</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://wa.me/919581773271" target="_blank" class="nav-cta">💬 Book on WhatsApp</a></li>
+    </ul>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+  <nav class="mobile-menu">
+    <a href="index.html">Home</a><a href="about.html">About</a>
+    <a href="fleet.html">Our Fleet</a><a href="routes.html">Routes</a>
+    <a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+    <a href="https://wa.me/919581773271" target="_blank">💬 Book on WhatsApp</a>
+  </nav>
+
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> Routes</div>
+    <h1>Our <span class="gold-text">Routes & Pricing</span></h1>
+    <p>Intercity & local routes from Vijayawada — one-way, round trip, and local sightseeing available 24/7.</p>
+  </div>
+
+  <section>
+
+    <!-- TABS -->
+    <div class="route-tabs">
+      <button class="route-tab active" onclick="showTab('intercity')">🛣️ Intercity Routes</button>
+      <button class="route-tab" onclick="showTab('local')">📍 Local & Nearby</button>
+      <button class="route-tab" onclick="showTab('roundtrip')">🔄 Round Trips</button>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- TAB 1: INTERCITY ROUTES                      -->
+    <!-- ════════════════════════════════════════════ -->
+    <div id="tab-intercity" class="tab-content active">
+
+      <!-- FEATURED ROUTE CARDS -->
+      <div class="featured-routes">
+
+        <!-- Hyderabad -->
+        <div class="featured-card reveal">
+          <div class="fc-header">
+            <div class="fc-route">Vijayawada <span class="arrow">→</span> Hyderabad</div>
+            <span class="fc-badge trip-badge popular">Popular</span>
+          </div>
+          <div class="fc-details">
+            <div class="fc-detail">
+              <span class="fc-detail-label">Distance</span>
+              <span class="fc-detail-value">~275 km</span>
+            </div>
+            <div class="fc-detail">
+              <span class="fc-detail-label">Duration</span>
+              <span class="fc-detail-value">~4–5 hrs</span>
+            </div>
+            <div class="fc-detail">
+              <span class="fc-detail-label">Highway</span>
+              <span class="fc-detail-value">NH-65</span>
+            </div>
+            <div class="fc-detail">
+              <span class="fc-detail-label">Trip Type</span>
+              <span class="fc-detail-value">One Way / Round</span>
+            </div>
+          </div>
+          <div class="fc-highlights">
+            <div class="fc-chip"><span>🏙️</span> Hitech City Drops</div>
+            <div class="fc-chip"><span>🌙</span> Night Travel</div>
+            <div class="fc-chip"><span>🔄</span> Round Trip</div>
+          </div>
+          <div class="fc-actions">
+            <a href="https://wa.me/919581773271?text=Hi! I need a cab from Vijayawada to Hyderabad." target="_blank"
+              class="btn btn-whatsapp">💬 Book Now</a>
+            <a href="tel:+919581773271" class="btn btn-outline">📞 Call</a>
+          </div>
+        </div>
+
+        <!-- Tirupati -->
+        <div class="featured-card reveal delay-1">
+          <div class="fc-header">
+            <div class="fc-route">Vijayawada <span class="arrow">→</span> Tirupati</div>
+            <span class="fc-badge trip-badge pilgrimage">Pilgrimage</span>
+          </div>
+          <div class="fc-details">
+            <div class="fc-detail">
+              <span class="fc-detail-label">Distance</span>
+              <span class="fc-detail-value">~450 km</span>
+            </div>
+            <div class="fc-detail">
+              <span class="fc-detail-label">Duration</span>
+              <span class="fc-detail-value">~7–8 hrs</span>
+            </div>
+            <div class="fc-detail">
+              <span class="fc-detail-label">Highway</span>
+              <span class="fc-detail-value">NH-16 / SH</span>
+            </div>
+            <div class="fc-detail">
+              <span class="fc-detail-label">Trip Type</span>
+              <span class="fc-detail-value">One Way / Round</span>
+            </div>
+          </div>
+          <div class="fc-highlights">
+            <div class="fc-chip"><span>🛕</span> Temple Drop</div>
+            <div class="fc-chip"><span>🙏</span> Pilgrimage</div>
+            <div class="fc-chip"><span>🔄</span> Round Trip</div>
+          </div>
+          <div class="fc-actions">
+            <a href="https://wa.me/919581773271?text=Hi! I need a cab from Vijayawada to Tirupati." target="_blank"
+              class="btn btn-whatsapp">💬 Book Now</a>
+            <a href="tel:+919581773271" class="btn btn-outline">📞 Call</a>
+          </div>
+        </div>
+
+        <!-- Vizag -->
+        <div class="featured-card reveal delay-2">
+          <div class="fc-header">
+            <div class="fc-route">Vijayawada <span class="arrow">→</span> Vizag</div>
+            <span class="fc-badge trip-badge scenic">Scenic</span>
+          </div>
+          <div class="fc-details">
+            <div class="fc-detail">
+              <span class="fc-detail-label">Distance</span>
+              <span class="fc-detail-value">~350 km</span>
+            </div>
+            <div class="fc-detail">
+              <span class="fc-detail-label">Duration</span>
+              <span class="fc-detail-value">~5–6 hrs</span>
+            </div>
+            <div class="fc-detail">
+              <span class="fc-detail-label">Highway</span>
+              <span class="fc-detail-value">NH-16</span>
+            </div>
+            <div class="fc-detail">
+              <span class="fc-detail-label">Trip Type</span>
+              <span class="fc-detail-value">One Way / Round</span>
+            </div>
+          </div>
+          <div class="fc-highlights">
+            <div class="fc-chip"><span>🌊</span> Coastal Highway</div>
+            <div class="fc-chip"><span>🏖️</span> Beach City</div>
+            <div class="fc-chip"><span>🔄</span> Round Trip</div>
+          </div>
+          <div class="fc-actions">
+            <a href="https://wa.me/919581773271?text=Hi! I need a cab from Vijayawada to Vizag." target="_blank"
+              class="btn btn-whatsapp">💬 Book Now</a>
+            <a href="tel:+919581773271" class="btn btn-outline">📞 Call</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ALL INTERCITY ROUTES TABLE -->
+      <div class="routes-table-wrap reveal">
+        <h3>📋 All Intercity Routes from Vijayawada</h3>
+        <table class="routes-table">
+          <thead>
+            <tr>
+              <th>Route</th>
+              <th>Distance</th>
+              <th>Duration</th>
+              <th>Trip Type</th>
+              <th>Book</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">→</span> Hyderabad</div>
+              </td>
+              <td data-label="Distance">~275 km</td>
+              <td data-label="Duration">~4–5 hrs</td>
+              <td data-label="Trip Type">
+                <div class="trip-badges">
+                  <span class="trip-badge oneway">One Way</span>
+                  <span class="trip-badge round">Round</span>
+                </div>
+              </td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Cab from Vijayawada to Hyderabad." target="_blank">Book
+                  →</a>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">→</span> Tirupati</div>
+              </td>
+              <td data-label="Distance">~450 km</td>
+              <td data-label="Duration">~7–8 hrs</td>
+              <td data-label="Trip Type">
+                <div class="trip-badges">
+                  <span class="trip-badge oneway">One Way</span>
+                  <span class="trip-badge round">Round</span>
+                </div>
+              </td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Cab from Vijayawada to Tirupati." target="_blank">Book →</a>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">→</span> Vizag</div>
+              </td>
+              <td data-label="Distance">~350 km</td>
+              <td data-label="Duration">~5–6 hrs</td>
+              <td data-label="Trip Type">
+                <div class="trip-badges">
+                  <span class="trip-badge oneway">One Way</span>
+                  <span class="trip-badge round">Round</span>
+                </div>
+              </td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Cab from Vijayawada to Vizag." target="_blank">Book →</a>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">→</span> Chennai</div>
+              </td>
+              <td data-label="Distance">~470 km</td>
+              <td data-label="Duration">~7–8 hrs</td>
+              <td data-label="Trip Type">
+                <div class="trip-badges">
+                  <span class="trip-badge oneway">One Way</span>
+                  <span class="trip-badge round">Round</span>
+                </div>
+              </td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Cab from Vijayawada to Chennai." target="_blank">Book →</a>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">→</span> Bangalore</div>
+              </td>
+              <td data-label="Distance">~660 km</td>
+              <td data-label="Duration">~10–11 hrs</td>
+              <td data-label="Trip Type">
+                <div class="trip-badges">
+                  <span class="trip-badge oneway">One Way</span>
+                  <span class="trip-badge round">Round</span>
+                </div>
+              </td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Cab from Vijayawada to Bangalore." target="_blank">Book
+                  →</a></td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">→</span> Rajahmundry</div>
+              </td>
+              <td data-label="Distance">~200 km</td>
+              <td data-label="Duration">~3.5 hrs</td>
+              <td data-label="Trip Type">
+                <div class="trip-badges">
+                  <span class="trip-badge oneway">One Way</span>
+                  <span class="trip-badge round">Round</span>
+                </div>
+              </td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Cab from Vijayawada to Rajahmundry." target="_blank">Book
+                  →</a></td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">→</span> Nellore</div>
+              </td>
+              <td data-label="Distance">~310 km</td>
+              <td data-label="Duration">~5 hrs</td>
+              <td data-label="Trip Type">
+                <div class="trip-badges">
+                  <span class="trip-badge oneway">One Way</span>
+                  <span class="trip-badge round">Round</span>
+                </div>
+              </td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Cab from Vijayawada to Nellore." target="_blank">Book →</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- TAB 2: LOCAL & NEARBY                        -->
+    <!-- ════════════════════════════════════════════ -->
+    <div id="tab-local" class="tab-content">
+
+      <div class="section-header" style="margin-bottom: 2rem;">
+        <h2>Local Vijayawada & <span class="gold-text">Nearby Destinations</span></h2>
+        <p>Short trips around Vijayawada — temples, sightseeing, and day outings at affordable rates.</p>
+      </div>
+
+      <div class="local-grid">
+
+        <div class="local-card reveal">
+          <div class="local-header">
+            <div class="local-name"><span class="emoji">🏛️</span> Amaravati</div>
+            <span class="trip-badge popular">Popular</span>
+          </div>
+          <div class="local-meta">
+            <div>📏 <strong>~30 km</strong></div>
+            <div>⏱️ <strong>~45 min</strong></div>
+          </div>
+          <div class="local-desc">Ancient Buddhist capital & new AP capital site. Visit the stupa, museum, and Dhyana
+            Buddha statue.</div>
+          <a href="https://wa.me/919581773271?text=Hi! I need a cab from Vijayawada to Amaravati." target="_blank"
+            class="btn btn-whatsapp" style="font-size:0.82rem;padding:0.5rem 1rem;">💬 Book</a>
+        </div>
+
+        <div class="local-card reveal delay-1">
+          <div class="local-header">
+            <div class="local-name"><span class="emoji">🏙️</span> Guntur</div>
+            <span class="trip-badge popular">Popular</span>
+          </div>
+          <div class="local-meta">
+            <div>📏 <strong>~35 km</strong></div>
+            <div>⏱️ <strong>~50 min</strong></div>
+          </div>
+          <div class="local-desc">Major city nearby. Known for Kondaveedu Fort, Uppalapadu Bird Sanctuary, and famous
+            spice market.</div>
+          <a href="https://wa.me/919581773271?text=Hi! I need a cab from Vijayawada to Guntur." target="_blank"
+            class="btn btn-whatsapp" style="font-size:0.82rem;padding:0.5rem 1rem;">💬 Book</a>
+        </div>
+
+        <div class="local-card reveal delay-2">
+          <div class="local-header">
+            <div class="local-name"><span class="emoji">🛕</span> Mangalagiri</div>
+          </div>
+          <div class="local-meta">
+            <div>📏 <strong>~15 km</strong></div>
+            <div>⏱️ <strong>~25 min</strong></div>
+          </div>
+          <div class="local-desc">Famous Panakala Narasimha Swamy Temple on the hilltop. A must-visit for devotees.
+          </div>
+          <a href="https://wa.me/919581773271?text=Hi! I need a cab from Vijayawada to Mangalagiri." target="_blank"
+            class="btn btn-whatsapp" style="font-size:0.82rem;padding:0.5rem 1rem;">💬 Book</a>
+        </div>
+
+        <div class="local-card reveal delay-3">
+          <div class="local-header">
+            <div class="local-name"><span class="emoji">🏔️</span> Kondapalli</div>
+          </div>
+          <div class="local-meta">
+            <div>📏 <strong>~25 km</strong></div>
+            <div>⏱️ <strong>~40 min</strong></div>
+          </div>
+          <div class="local-desc">Historic Kondapalli Fort and the famous Kondapalli toy-making village. Great for a day
+            trip.</div>
+          <a href="https://wa.me/919581773271?text=Hi! I need a cab from Vijayawada to Kondapalli." target="_blank"
+            class="btn btn-whatsapp" style="font-size:0.82rem;padding:0.5rem 1rem;">💬 Book</a>
+        </div>
+
+        <div class="local-card reveal delay-4">
+          <div class="local-header">
+            <div class="local-name"><span class="emoji">🌿</span> Undavalli Caves</div>
+          </div>
+          <div class="local-meta">
+            <div>📏 <strong>~8 km</strong></div>
+            <div>⏱️ <strong>~15 min</strong></div>
+          </div>
+          <div class="local-desc">Ancient rock-cut caves from 4th–5th century with a stunning monolithic Vishnu statue.
+          </div>
+          <a href="https://wa.me/919581773271?text=Hi! I need a cab to Undavalli Caves." target="_blank"
+            class="btn btn-whatsapp" style="font-size:0.82rem;padding:0.5rem 1rem;">💬 Book</a>
+        </div>
+
+        <div class="local-card reveal delay-5">
+          <div class="local-header">
+            <div class="local-name"><span class="emoji">🛕</span> Kanaka Durga Temple</div>
+          </div>
+          <div class="local-meta">
+            <div>📏 <strong>~5 km</strong></div>
+            <div>⏱️ <strong>~10 min</strong></div>
+          </div>
+          <div class="local-desc">The famous hilltop temple on Indrakeeladri. We offer hassle-free cab service to the
+            temple.</div>
+          <a href="https://wa.me/919581773271?text=Hi! I need a cab to Kanaka Durga Temple." target="_blank"
+            class="btn btn-whatsapp" style="font-size:0.82rem;padding:0.5rem 1rem;">💬 Book</a>
+        </div>
+
+        <div class="local-card reveal">
+          <div class="local-header">
+            <div class="local-name"><span class="emoji">🌊</span> Prakasam Barrage</div>
+          </div>
+          <div class="local-meta">
+            <div>📏 <strong>~3 km</strong></div>
+            <div>⏱️ <strong>~8 min</strong></div>
+          </div>
+          <div class="local-desc">Scenic barrage across Krishna River. Perfect for an evening outing with the family.
+          </div>
+          <a href="https://wa.me/919581773271?text=Hi! I need a cab to Prakasam Barrage." target="_blank"
+            class="btn btn-whatsapp" style="font-size:0.82rem;padding:0.5rem 1rem;">💬 Book</a>
+        </div>
+
+        <div class="local-card reveal delay-1">
+          <div class="local-header">
+            <div class="local-name"><span class="emoji">🏛️</span> Srisailam</div>
+          </div>
+          <div class="local-meta">
+            <div>📏 <strong>~210 km</strong></div>
+            <div>⏱️ <strong>~4 hrs</strong></div>
+          </div>
+          <div class="local-desc">Jyotirlinga temple on the banks of Krishna River. Popular pilgrimage & weekend trip.
+          </div>
+          <a href="https://wa.me/919581773271?text=Hi! I need a cab from Vijayawada to Srisailam." target="_blank"
+            class="btn btn-whatsapp" style="font-size:0.82rem;padding:0.5rem 1rem;">💬 Book</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- TAB 3: ROUND TRIPS                           -->
+    <!-- ════════════════════════════════════════════ -->
+    <div id="tab-roundtrip" class="tab-content">
+
+      <div class="section-header" style="margin-bottom: 2rem;">
+        <h2>Round Trip <span class="gold-text">Packages</span></h2>
+        <p>Travel to your destination and return at your convenience. All round trips include waiting charges and driver
+          accommodation.</p>
+      </div>
+
+      <div class="routes-table-wrap reveal">
+        <h3>🔄 Round Trip Routes from Vijayawada</h3>
+        <table class="routes-table">
+          <thead>
+            <tr>
+              <th>Route</th>
+              <th>Distance (Total)</th>
+              <th>Duration</th>
+              <th>Includes</th>
+              <th>Book</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">⇄</span> Hyderabad</div>
+              </td>
+              <td data-label="Distance">~550 km</td>
+              <td data-label="Duration">1–2 days</td>
+              <td data-label="Includes">Driver stay, tolls, parking</td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Round trip Vijayawada to Hyderabad." target="_blank">Book
+                  →</a></td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">⇄</span> Tirupati</div>
+              </td>
+              <td data-label="Distance">~900 km</td>
+              <td data-label="Duration">2–3 days</td>
+              <td data-label="Includes">Driver stay, tolls, parking</td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Round trip Vijayawada to Tirupati." target="_blank">Book
+                  →</a></td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">⇄</span> Vizag</div>
+              </td>
+              <td data-label="Distance">~700 km</td>
+              <td data-label="Duration">2–3 days</td>
+              <td data-label="Includes">Driver stay, tolls, parking</td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Round trip Vijayawada to Vizag." target="_blank">Book →</a>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">⇄</span> Srisailam</div>
+              </td>
+              <td data-label="Distance">~420 km</td>
+              <td data-label="Duration">1–2 days</td>
+              <td data-label="Includes">Driver stay, tolls, parking</td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Round trip Vijayawada to Srisailam." target="_blank">Book
+                  →</a></td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">⇄</span> Chennai</div>
+              </td>
+              <td data-label="Distance">~940 km</td>
+              <td data-label="Duration">2–3 days</td>
+              <td data-label="Includes">Driver stay, tolls, parking</td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Round trip Vijayawada to Chennai." target="_blank">Book
+                  →</a>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Route">
+                <div class="route-name">Vijayawada <span class="arrow">⇄</span> Amaravati</div>
+              </td>
+              <td data-label="Distance">~60 km</td>
+              <td data-label="Duration">Half day</td>
+              <td data-label="Includes">Sightseeing, parking</td>
+              <td data-label="Book"><a class="book-link"
+                  href="https://wa.me/919581773271?text=Hi! Round trip Vijayawada to Amaravati." target="_blank">Book
+                  →</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div
+        style="background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:2rem; margin-bottom:2rem;"
+        class="reveal">
+        <h3 style="margin-bottom:1rem;">💡 Round Trip <span class="gold-text">Benefits</span></h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1.5rem;">
+          <div>
+            <div style="font-size:1.5rem; margin-bottom:0.4rem;">💰</div>
+            <h4 style="font-size:0.95rem; margin-bottom:0.3rem;">Better Rates</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted);">Round trips are more economical than booking two
+              one-way trips separately.</p>
+          </div>
+          <div>
+            <div style="font-size:1.5rem; margin-bottom:0.4rem;">🚗</div>
+            <h4 style="font-size:0.95rem; margin-bottom:0.3rem;">Same Vehicle</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted);">Keep the same vehicle & driver for your entire trip.
+              No hassle of rebooking.</p>
+          </div>
+          <div>
+            <div style="font-size:1.5rem; margin-bottom:0.4rem;">⏰</div>
+            <h4 style="font-size:0.95rem; margin-bottom:0.3rem;">Flexible Timing</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted);">Return whenever you're ready. No fixed schedules —
+              travel at your convenience.</p>
+          </div>
+          <div>
+            <div style="font-size:1.5rem; margin-bottom:0.4rem;">🏨</div>
+            <h4 style="font-size:0.95rem; margin-bottom:0.3rem;">Driver Stay Included</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted);">Driver accommodation and allowance included in the
+              fare. No hidden costs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- FAQ (always visible)                         -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="faq-wrap reveal">
+      <div class="section-header" style="margin-bottom:2rem;">
+        <span class="section-tag">FAQ</span>
+        <h2>Frequently Asked <span class="gold-text">Questions</span></h2>
+      </div>
+      <div id="faqList">
+        <div class="faq-item"><button class="faq-q">How do I book a cab? <span class="faq-arrow">▼</span></button>
+          <div class="faq-a">
+            <p>Simply message us on WhatsApp at +91 95817 73271 or give us a call. Share your route, travel date, number
+              of passengers and preferred vehicle — we'll confirm your booking instantly.</p>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q">Are toll charges included? <span class="faq-arrow">▼</span></button>
+          <div class="faq-a">
+            <p>Toll charges on highways are included in the fare quoted. Any additional state border tolls may be
+              charged extra. We always inform you upfront about the final amount before your journey.</p>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q">How does round trip pricing work? <span
+              class="faq-arrow">▼</span></button>
+          <div class="faq-a">
+            <p>Round trip fare is calculated based on total distance. It includes driver accommodation, tolls, and
+              parking. Contact us for an exact quote based on your dates and vehicle preference.</p>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q">Do you offer local sightseeing packages? <span
+              class="faq-arrow">▼</span></button>
+          <div class="faq-a">
+            <p>Yes! We offer half-day and full-day local sightseeing packages covering Amaravati, Undavalli Caves,
+              Mangalagiri, Kondapalli and more. Contact us for customized packages.</p>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q">Do you offer airport / railway station pickup? <span
+              class="faq-arrow">▼</span></button>
+          <div class="faq-a">
+            <p>Yes, we provide pickup and drop from Vijayawada Airport (VGA), Vijayawada Railway Station, and major
+              locations across all covered cities. Just mention it when you contact us.</p>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q">Are night journeys available? <span
+              class="faq-arrow">▼</span></button>
+          <div class="faq-a">
+            <p>Yes, we operate 24/7. Night journeys are available for all routes. A nominal night surcharge may apply
+              for trips starting between 10 PM and 5 AM.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-strip reveal">
+      <div class="cta-strip-text">
+        <h3>Can't find your route? <span class="gold-text">Custom trips available!</span></h3>
+        <p>We cover any destination in Andhra Pradesh, Telangana & South India. Just tell us where you want to go.</p>
+      </div>
+      <div class="cta-strip-actions">
+        <a href="https://wa.me/919581773271?text=Hi! I need a cab for a custom route from Vijayawada." target="_blank"
+          class="btn btn-whatsapp">💬 WhatsApp Us</a>
+        <a href="tel:+919581773271" class="btn btn-outline">📞 Call Now</a>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><img src="images/logo.png" alt="Logo"></div> Sri Durga <span>Travels</span>
+        </a>
+        <p>Your trusted intercity travel partner from Vijayawada. Safe, comfortable and affordable AC cab service across
+          Andhra Pradesh & Telangana.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="fleet.html">Our Fleet</a></li>
+          <li><a href="routes.html">Routes</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Popular Routes</h4>
+        <ul>
+          <li><a href="routes.html">Vijayawada → Hyderabad</a></li>
+          <li><a href="routes.html">Vijayawada → Tirupati</a></li>
+          <li><a href="routes.html">Vijayawada → Vizag</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item"><span>📞</span><a href="tel:+919581773271">+91 95817 73271</a></div>
+        <div class="footer-contact-item"><span>📞</span><a href="tel:+917095258325">+91 70952 58325</a></div>
+        <div class="footer-contact-item"><span>💬</span><a href="https://wa.me/919581773271" target="_blank">WhatsApp
+            Us</a></div>
+        <div class="footer-contact-item"><span>📧</span><a href="mailto:rk244895@gmail.com">rk244895@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Sri Durga Travels. All rights reserved.</p>
+      <p><a href="terms.html" style="color:inherit;">Terms & Conditions</a> · <a href="terms.html"
+          style="color:inherit;">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/919581773271" target="_blank" class="whatsapp-float">💬</a>
+  <a href="tel:+919581773271" class="call-float">📞</a>
+  <button class="back-to-top" aria-label="Back to top">▲</button>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Tab switching
+    function showTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.route-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+
+</html>
