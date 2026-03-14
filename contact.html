@@ -4,9 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us – Sri Durga Travels | Book Your Cab</title>
+  <title>Contact Us – DURGA TOUR & TRAVELS | Book Your Cab</title>
   <meta name="description"
-    content="Contact Sri Durga Travels for intercity cab bookings from Vijayawada. Book via WhatsApp, phone or our online form.">
+    content="Contact DURGA TOUR & TRAVELS for intercity cab bookings from Vijayawada. Book via WhatsApp, phone or our online form.">
+  
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sri-durga-travels.vercel.app/contact.html">
+  <meta property="og:title" content="Contact Us – DURGA TOUR & TRAVELS | Book Your Ride">
+  <meta property="og:description" content="Reach out to us for safe and reliable cab bookings from Vijayawada. Available 24/7 via WhatsApp and Phone.">
+  <meta property="og:image" content="https://sri-durga-travels.vercel.app/images/innova-crysta.png">
+
   <link rel="stylesheet" href="css/styles.css" />
   <style>
     .contact-hero-grid {
@@ -168,8 +176,8 @@
       display: none;
       text-align: center;
       padding: 1.5rem;
-      background: rgba(37, 211, 102, 0.1);
-      border: 1px solid rgba(37, 211, 102, 0.3);
+      background: rgba(244, 161, 0, 0.1);
+      border: 1px solid rgba(244, 161, 0, 0.3);
       border-radius: 12px;
       margin-top: 1rem;
     }
@@ -179,7 +187,7 @@
     }
 
     .form-success h4 {
-      color: #4ade80;
+      color: var(--gold);
       margin-bottom: 0.5rem;
       font-size: 1rem;
     }
@@ -208,8 +216,8 @@
     }
 
     .wa-sidebar {
-      background: rgba(37, 211, 102, 0.08);
-      border-color: rgba(37, 211, 102, 0.3);
+      background: rgba(244, 161, 0, 0.08);
+      border-color: rgba(244, 161, 0, 0.3);
       text-align: center;
     }
 
@@ -222,7 +230,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       font-weight: 700;
-      color: #4ade80;
+      color: var(--gold);
       margin-bottom: 0.3rem;
     }
 
@@ -250,7 +258,7 @@
 
     .hours-time {
       font-weight: 600;
-      color: #4ade80;
+      color: var(--gold);
     }
 
     .map-section {
@@ -376,7 +384,7 @@
 
   <nav class="navbar">
     <a href="index.html" class="logo">
-      <div class="logo-icon"><img src="images/Logo.png" alt="Logo"></div> Sri Durga <span>Travels</span>
+      <div class="logo-icon"><img src="images/Logo.png" alt="Logo"></div> DURGA TOUR <span>& TRAVELS</span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -406,10 +414,10 @@
   <section style="padding:0 5% 2rem;">
     <div class="contact-hero-grid">
       <a href="https://wa.me/919581773271" target="_blank" class="contact-card-mini"
-        style="border-color:rgba(37,211,102,0.4);">
+        style="border-color:rgba(244,161,0,0.4);">
         <div class="ccm-icon">💬</div>
         <div class="ccm-label">WhatsApp – Fastest</div>
-        <div class="ccm-value" style="color:#4ade80;">+91 95817 73271</div>
+        <div class="ccm-value" style="color:var(--gold);">+91 95817 73271</div>
       </a>
       <a href="tel:+919581773271" class="contact-card-mini">
         <div class="ccm-icon">📞</div>
@@ -439,22 +447,27 @@
         <p>Share your trip details and we'll get back to you instantly via WhatsApp with a confirmed booking and fare.
         </p>
 
-        <form id="bookingForm">
+        <form id="bookingForm" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="ec4c691b-14d2-47f8-99ce-21b7735e8b04">
+          <input type="hidden" name="subject" value="New Cab Booking Request">
+          <input type="hidden" name="from_name" value="DURGA TOUR & TRAVELS">
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
           <div class="form-row">
             <div class="form-group">
               <label>Full Name <span class="required">*</span></label>
-              <input type="text" id="fullName" class="form-control" placeholder="Your full name" required>
+              <input type="text" id="fullName" name="Full Name" class="form-control" placeholder="Your full name" required>
             </div>
             <div class="form-group">
               <label>Phone Number <span class="required">*</span></label>
-              <input type="tel" id="phone" class="form-control" placeholder="+91 XXXXX XXXXX" required>
+              <input type="tel" id="phone" name="Phone Number" class="form-control" placeholder="+91 XXXXX XXXXX" required>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label>Pickup City <span class="required">*</span></label>
-              <select id="pickupCity" class="form-control" required>
+              <select id="pickupCity" name="Pickup City" class="form-control" required>
                 <option value="">Select pickup city</option>
                 <option value="Vijayawada">Vijayawada</option>
                 <option value="Hyderabad">Hyderabad</option>
@@ -466,7 +479,7 @@
             </div>
             <div class="form-group">
               <label>Drop City <span class="required">*</span></label>
-              <select id="dropCity" class="form-control" required>
+              <select id="dropCity" name="Drop City" class="form-control" required>
                 <option value="">Select drop city</option>
                 <option value="Vijayawada">Vijayawada</option>
                 <option value="Hyderabad">Hyderabad</option>
@@ -481,18 +494,18 @@
           <div class="form-row">
             <div class="form-group">
               <label>Travel Date <span class="required">*</span></label>
-              <input type="date" id="travelDate" class="form-control" required>
+              <input type="date" id="travelDate" name="Travel Date" class="form-control" required>
             </div>
             <div class="form-group">
               <label>Return Date <span style="color:var(--text-muted);font-weight:400;">(for round trip)</span></label>
-              <input type="date" id="returnDate" class="form-control">
+              <input type="date" id="returnDate" name="Return Date" class="form-control">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label>No. of Passengers <span class="required">*</span></label>
-              <select id="passengers" class="form-control" required>
+              <select id="passengers" name="Passengers" class="form-control" required>
                 <option value="">Select</option>
                 <option value="1-2">1–2 Passengers</option>
                 <option value="3-4">3–4 Passengers</option>
@@ -503,7 +516,7 @@
             </div>
             <div class="form-group">
               <label>Trip Type</label>
-              <select id="tripType" class="form-control">
+              <select id="tripType" name="Trip Type" class="form-control">
                 <option value="">Select trip type</option>
                 <option value="One Way">One Way</option>
                 <option value="Round Trip">Round Trip</option>
@@ -514,7 +527,7 @@
 
           <div class="form-group">
             <label>Vehicle Preference</label>
-            <select id="vehiclePref" class="form-control">
+            <select id="vehiclePref" name="Vehicle Preference" class="form-control">
               <option value="">No preference / Let us suggest</option>
               <option value="Swift Dzire">Swift Dzire (4 seater)</option>
               <option value="Toyota Etios">Toyota Etios (4 seater)</option>
@@ -526,7 +539,7 @@
 
           <div class="form-group">
             <label>Special Requirements / Notes</label>
-            <textarea id="specialReq" class="form-control"
+            <textarea id="specialReq" name="Special Requirements" class="form-control"
               placeholder="E.g., early morning pickup, extra luggage, child seat needed..."></textarea>
           </div>
 
@@ -593,7 +606,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <div class="logo-icon"><img src="images/Logo.png" alt="Logo"></div> Sri Durga <span>Travels</span>
+          <div class="logo-icon"><img src="images/Logo.png" alt="Logo"></div> DURGA TOUR <span>& TRAVELS</span>
         </a>
         <p>Your trusted intercity travel partner from Vijayawada. Safe, comfortable and affordable AC cab service across
           Andhra Pradesh & Telangana.</p>
@@ -627,7 +640,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 Sri Durga Travels. All rights reserved.</p>
+      <p>© 2026 DURGA TOUR & TRAVELS. All rights reserved.</p>
       <p><a href="terms.html" style="color:inherit;">Terms & Conditions</a> · <a href="terms.html"
           style="color:inherit;">Privacy Policy</a></p>
     </div>

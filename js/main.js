@@ -62,43 +62,127 @@ const bookingForm = document.getElementById('bookingForm');
 if (bookingForm) {
   bookingForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    const name = this.querySelector('#fullName')?.value || '';
-    const phone = this.querySelector('#phone')?.value || '';
-    const pickup = this.querySelector('#pickupCity')?.value || '';
-    const drop = this.querySelector('#dropCity')?.value || '';
-    const date = this.querySelector('#travelDate')?.value || '';
-    const returnDate = this.querySelector('#returnDate')?.value || '';
-    const passengers = this.querySelector('#passengers')?.value || '';
-    const vehicle = this.querySelector('#vehiclePref')?.value || '';
-    const tripType = this.querySelector('#tripType')?.value || '';
-    const notes = this.querySelector('#specialReq')?.value || '';
 
-    const formatDate = (dateStr) => {
-      if (!dateStr) return '';
-      const [year, month, day] = dateStr.split('-');
-      return `${day}/${month}/${year}`;
-    };
+    const formData = new FormData(bookingForm);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
 
-    let msg = `Hi! I'd like to book a cab.\n\n`;
-    if (name) msg += `Name: ${name}\n`;
-    if (phone) msg += `Phone: ${phone}\n`;
-    if (pickup) msg += `Pickup: ${pickup}\n`;
-    if (drop) msg += `Drop: ${drop}\n`;
-    if (date) msg += `Date: ${formatDate(date)}\n`;
-    if (returnDate) msg += `Return Date: ${formatDate(returnDate)}\n`;
-    if (tripType) msg += `Trip Type: ${tripType}\n`;
-    if (passengers) msg += `Passengers: ${passengers}\n`;
-    if (vehicle) msg += `Vehicle: ${vehicle}\n`;
-    if (notes) msg += `Notes: ${notes}\n`;
+    const submitBtn = bookingForm.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Sending...';
+    submitBtn.disabled = true;
 
-    const waUrl = `https://wa.me/919581773271?text=${encodeURIComponent(msg)}`;
-    window.open(waUrl, '_blank');
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+    })
+    .then(async (response) => {
+        let jsonRes = await response.json();
+        if (response.status == 200) {
+            const successMsg = document.querySelector('.form-success');
+            if (successMsg) {
+              successMsg.classList.add('show');
+              setTimeout(() => successMsg.classList.remove('show'), 5000);
+            }
+            bookingForm.reset();
+        } else {
+            console.error(jsonRes);
+            alert("Something went wrong while sending email.");
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Something went wrong!");
+    })
+    .finally(() => {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        
+        // After email logic, open WhatsApp
+        const name = object['Full Name'] || '';
+        const phone = object['Phone Number'] || '';
+        const pickup = object['Pickup City'] || '';
+        const drop = object['Drop City'] || '';
+        const date = object['Travel Date'] || '';
+        const returnDate = object['Return Date'] || '';
+        const passengers = object['Passengers'] || '';
+        const vehicle = object['Vehicle Preference'] || '';
+        const tripType = object['Trip Type'] || '';
+        const notes = object['Special Requirements'] || '';
 
-    const successMsg = document.querySelector('.form-success');
-    if (successMsg) {
-      successMsg.classList.add('show');
-      setTimeout(() => successMsg.classList.remove('show'), 5000);
-    }
+        const formatDate = (dateStr) => {
+          if (!dateStr) return '';
+          const [year, month, day] = dateStr.split('-');
+          return `${day}/${month}/${year}`;
+        };
+
+        let msg = `Hi! I'd like to book a cab.\n\n`;
+        if (name) msg += `Name: ${name}\n`;
+        if (phone) msg += `Phone: ${phone}\n`;
+        if (pickup) msg += `Pickup: ${pickup}\n`;
+        if (drop) msg += `Drop: ${drop}\n`;
+        if (date) msg += `Date: ${formatDate(date)}\n`;
+        if (returnDate) msg += `Return Date: ${formatDate(returnDate)}\n`;
+        if (tripType) msg += `Trip Type: ${tripType}\n`;
+        if (passengers) msg += `Passengers: ${passengers}\n`;
+        if (vehicle) msg += `Vehicle: ${vehicle}\n`;
+        if (notes) msg += `Notes: ${notes}\n`;
+
+        const waUrl = `https://wa.me/919581773271?text=${encodeURIComponent(msg)}`;
+        window.open(waUrl, '_blank');
+    });
+  });
+}
+
+// ── NEWSLETTER FORM ──
+const newsletterForm = document.getElementById('newsletterForm');
+if (newsletterForm) {
+  newsletterForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(newsletterForm);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Subscribing...';
+    submitBtn.disabled = true;
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+    })
+    .then(async (response) => {
+        let jsonRes = await response.json();
+        if (response.status == 200) {
+            const successMsg = document.getElementById('newsletterSuccess');
+            if (successMsg) {
+              successMsg.style.display = 'block';
+              setTimeout(() => successMsg.style.display = 'none', 5000);
+            }
+            newsletterForm.reset();
+        } else {
+            console.error(jsonRes);
+            alert("Something went wrong!");
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Something went wrong!");
+    })
+    .finally(() => {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+    });
   });
 }
 
