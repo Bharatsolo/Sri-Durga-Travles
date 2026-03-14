@@ -73,15 +73,21 @@ if (bookingForm) {
     const tripType = this.querySelector('#tripType')?.value || '';
     const notes = this.querySelector('#specialReq')?.value || '';
 
-    let msg = `Hi! I'd like to book a cab.\n`;
-    msg += `Name: ${name}\n`;
-    msg += `Phone: ${phone}\n`;
-    msg += `Pickup: ${pickup}\n`;
-    msg += `Drop: ${drop}\n`;
-    msg += `Date: ${date}\n`;
-    if (returnDate) msg += `Return Date: ${returnDate}\n`;
-    msg += `Passengers: ${passengers}\n`;
+    const formatDate = (dateStr) => {
+      if (!dateStr) return '';
+      const [year, month, day] = dateStr.split('-');
+      return `${day}/${month}/${year}`;
+    };
+
+    let msg = `Hi! I'd like to book a cab.\n\n`;
+    if (name) msg += `Name: ${name}\n`;
+    if (phone) msg += `Phone: ${phone}\n`;
+    if (pickup) msg += `Pickup: ${pickup}\n`;
+    if (drop) msg += `Drop: ${drop}\n`;
+    if (date) msg += `Date: ${formatDate(date)}\n`;
+    if (returnDate) msg += `Return Date: ${formatDate(returnDate)}\n`;
     if (tripType) msg += `Trip Type: ${tripType}\n`;
+    if (passengers) msg += `Passengers: ${passengers}\n`;
     if (vehicle) msg += `Vehicle: ${vehicle}\n`;
     if (notes) msg += `Notes: ${notes}\n`;
 
